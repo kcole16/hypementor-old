@@ -52,6 +52,12 @@ def get_linkedin_profile(access_token):
 def upload_file_to_dropbox(file, user):
     access_token = os.environ['DROPBOX_ACCESS_TOKEN']
     user_email = user.email
+
+    subject = "ALERT: New Resume Received"
+    html = "<p>Resume received from user: %s!<p>" % user_email
+    recipients = os.environ['ALERT_RECIPIENTS'].split(',')
+    send_mail(subject,html,recipients,'kcole16@gmail.com')
+
     client = dropbox.client.DropboxClient(access_token)
     response = client.put_file('/%s.pdf' % user_email, file)
     try:
@@ -59,6 +65,19 @@ def upload_file_to_dropbox(file, user):
     except KeyError:
         file_name = "Error"
     return file_name
+
+def send_mail(subject, html, recipients, sender):
+    r = requests.post(
+        "https://api.mailgun.net/v2/%s.mailgun.org/messages" % os.environ['APP_NAME'],
+        auth=("api", os.environ['MAILGUN_API_KEY']),
+        data={"from": "%s" % sender,
+              "to": recipients,
+              "subject": subject,
+              "html": html})
+    if r.ok:
+        pass
+    else:
+        raise KeyError
     
 
 
