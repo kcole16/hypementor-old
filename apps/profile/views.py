@@ -42,8 +42,6 @@ def submit(request):
 			position=form.cleaned_data['position'], location=form.cleaned_data['location'])
 		interest.save()
 		return HttpResponseRedirect(url)
-		# profile_id = form.cleaned_data['profile']
-		# url = reverse('babel_updates', args=[profile_id,])
 	else:
 		form = SubmitForm()
 	return render_to_response('profile/submit.html',{'form':form}, context_instance=RequestContext(request))
@@ -60,6 +58,11 @@ def oauth(request):
 	code = request.GET['code']
 	access_token = authenticate_linkedin(code)
 	user = authenticate(access_token=access_token)
-	login(request, user)
-	url = reverse('submit')
+	check_login = login(request, user)
+	try:
+		profile = Profile.objects.get(user_id=user.id)
+	except ObjectDoesNotExist:
+		url = reverse('home')
+	else:
+		url=reverse('submit')
 	return HttpResponseRedirect(url) 
