@@ -24,7 +24,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['hypementor.herokuapp.com']
+ALLOWED_HOSTS = ['hypementor.herokuapp.com', 'hypementor.com', 'www.hypementor.com']
 
 
 # Application definition

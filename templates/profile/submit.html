@@ -2,6 +2,7 @@
 {% block title %}Sign Up{% endblock title %}
 
 {% block content %}
+<br>
 <p class="lead">Give us a few more details about yourself</p>
   <form role="form" enctype="multipart/form-data" action="/submit/" method="POST" style="max-width:300px" >
     <div class="form-group">
@@ -16,6 +17,11 @@
       <label>Preferred Location</label>
       <input class="form-control" type="text" name="location" placeholder="SF, NYC, No Preference, etc." required >
     </div>
+
+    {% if upload_error %}
+    <h3 style="color:red;">Please select a file to upload</h3>
+    {% endif %}
+    
     <div class="form-group">
       <label>Upload resume:</label>
       <input type="file" name="file" required >

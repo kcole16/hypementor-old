@@ -10,6 +10,7 @@ from django.db import IntegrityError, connection, transaction
 from django.views.decorators.csrf import csrf_exempt
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.utils.datastructures import MultiValueDictKeyError
 
 from apps.profile.utils import authenticate_linkedin, upload_file_to_dropbox
 from apps.profile.forms import SubmitForm
@@ -30,21 +31,26 @@ def logout_view(request):
 
 @login_required
 def submit(request):
+	upload_error = False
 	user = request.user
 	if request.POST:
 		form = SubmitForm(request.POST, request.FILES)
 		form.is_valid()
-		file_name = upload_file_to_dropbox(request.FILES['file'], user)
-		url = reverse('home')
-		resume = Resume(user_id=user.id, file_name=file_name)
-		resume.save()
-		interest = Interest(user_id=user.id, industry=form.cleaned_data['industry'],
-			position=form.cleaned_data['position'], location=form.cleaned_data['location'])
-		interest.save()
-		return HttpResponseRedirect(url)
+		try:
+			file_name = upload_file_to_dropbox(request.FILES['file'], user)
+		except MultiValueDictKeyError:
+			upload_error = True
+		else:
+			url = reverse('home')
+			resume = Resume(user_id=user.id, file_name=file_name)
+			resume.save()
+			interest = Interest(user_id=user.id, industry=form.cleaned_data['industry'],
+				position=form.cleaned_data['position'], location=form.cleaned_data['location'])
+			interest.save()
+			return HttpResponseRedirect(url)
 	else:
 		form = SubmitForm()
-	return render_to_response('profile/submit.html',{'form':form}, context_instance=RequestContext(request))
+	return render_to_response('profile/submit.html',{'form':form, 'upload_error':upload_error}, context_instance=RequestContext(request))
 
 def user_login(request):
 	client_id = os.environ['LINKEDIN_CLIENT_ID']
