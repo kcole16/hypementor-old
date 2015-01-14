@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.utils.datastructures import MultiValueDictKeyError
+from django.conf import settings
 
 from apps.profile.utils import authenticate_linkedin, upload_file_to_dropbox
 from apps.profile.forms import SubmitForm
@@ -33,6 +34,7 @@ def logout_view(request):
 def submit(request):
 	upload_error = False
 	user = request.user
+	industries = settings.INDUSTRIES
 	if request.POST:
 		form = SubmitForm(request.POST, request.FILES)
 		form.is_valid()
@@ -50,7 +52,7 @@ def submit(request):
 			return HttpResponseRedirect(url)
 	else:
 		form = SubmitForm()
-	return render_to_response('profile/submit.html',{'form':form, 'upload_error':upload_error}, context_instance=RequestContext(request))
+	return render_to_response('profile/submit.html',{'form':form, 'upload_error':upload_error, 'industries':industries}, context_instance=RequestContext(request))
 
 def user_login(request):
 	client_id = os.environ['LINKEDIN_CLIENT_ID']

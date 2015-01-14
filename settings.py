@@ -119,3 +119,21 @@ TEMPLATE_DIRS = (
     os.path.join(SITE_ROOT, 'templates'),
 )
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+INDUSTRIES = (
+    'Consulting',
+    'Finance',
+    'Technology',
+    'Public Sector/Non-profit',
+    'Education',
+    'Health Care',
+    'Science',
+    'Politics',
+    'Entertainment/Media',
+    'Science'
+    )
+
+
+
+
+
