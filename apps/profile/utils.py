@@ -42,7 +42,6 @@ def get_linkedin_profile(access_token):
         'Authorization': 'Bearer %s' % access_token
     }
     r = requests.get(url, headers=headers)
-    print r.text
     if r.ok:
         user_details = parse_profile(r.text)
     else:
