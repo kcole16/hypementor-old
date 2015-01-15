@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock title %}
+
+{% block content %}
+<h3>Users</h3>
+<table class="table table-striped table-bordered">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>School</th>
+    <th>Industry</th>
+    <th>Position</th>
+    <th>Location</th>
+    <th>Resume</th>
+  </tr>
+  {% for user in users %}
+  <tr>
+    <td>{{ user.first_name }} {{ user.last_name }}</td>
+    <td>{{ user.email }}</a></td>
+    <td>{{ user.education }}</td>
+    <td>{{ user.industry }}</td>
+    <td>{{ user.position }}</td>
+    <td>{{ user.location }}</td>
+    <td><a href="https://www.dropbox.com/sh/bzd1x4hddcrl8l5/AAAsdccXSEvwwGxN4-mUBVESa?dl=0" target="_blank">Resume</a></td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock content %}
