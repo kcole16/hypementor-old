@@ -12,6 +12,8 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.utils.datastructures import MultiValueDictKeyError
 from django.conf import settings
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 from apps.profile.utils import authenticate_linkedin, upload_file_to_dropbox
 from apps.profile.forms import SubmitForm
@@ -29,6 +31,11 @@ def home(request):
 def logout_view(request):
 	logout(request)
 	return redirect('login')
+
+@login_required
+def dashboard(request):
+	users = User.objects.raw("select * from auth_user au inner join profile_profile pp on pp.user_id = au.id inner join profile_interest pi on pi.user_id = au.id inner join profile_resume pr on pr.user_id = au.id ")
+	return render_to_response('profile/dashboard.html', {'users':users}, context_instance=RequestContext(request))
 
 @login_required
 def submit(request):
