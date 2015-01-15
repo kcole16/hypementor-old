@@ -44,12 +44,12 @@ class RestBackend(object):
                 <p>
                 %s,<br>
                 <br>Welcome to HypeMentor!<br>
-                <br>We'll be reviewing your background and interests over the next 24-48 hours, 
-                and will send you our resume review, along with the description of your mentor, 
-                within that timeframe. After that, we'll make the introduction.<br>
+                <br>We'll be reviewing your background and interests, 
+                and will send you our resume review along with the an introduction to your mentor over the next 24-48 hours. 
+                After that, it's up to you!<br>
                 <br>Feel free to contact us at any time if you have any questions.<br>
                 <br>Best,<br>
-                <br>Kendall and Jai
+                <br>The HypeMentor Team
                 </p>
                 """ % user.first_name
             sender = "kendall@hypementor.com"
