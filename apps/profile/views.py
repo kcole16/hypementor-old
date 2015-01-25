@@ -24,7 +24,9 @@ import os
 
 @login_required
 def home(request):
-	url = reverse('dashboard')
+	profile = Profile.objects.get(user_id=request.user.id)
+	client_code = Authorized.objects.get(linkedin_id=profile.linkedin_id).client_code
+	url = reverse('dashboard', args=(client_code,))
 	return redirect(url)
 
 @login_required
