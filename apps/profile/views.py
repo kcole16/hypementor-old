@@ -74,7 +74,7 @@ def user_login(request):
 def oauth(request):
 	code = request.GET['code']
 	access_token = authenticate_linkedin(code)
-	linkedin_id = get_linkedin_profile(access_token).linkedin_id
+	linkedin_id = get_linkedin_profile(access_token)['linkedin_id']
 	try:
 		authorized = Authorized.objects.get(linkedin_id=linkedin_id)
 	except ObjectDoesNotExist:
