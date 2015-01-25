@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'apps.profile',
+    'apps.dashboard'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -133,9 +134,5 @@ INDUSTRIES = (
     'Entertainment/Media',
     'Science'
     )
-
-
-
-
 
 

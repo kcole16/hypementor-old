@@ -5,6 +5,7 @@ import json
 import os
 from bs4 import BeautifulSoup
 import dropbox
+import pymongo
 
 def authenticate_linkedin(code):
     url = 'https://www.linkedin.com/uas/oauth2/accessToken'
@@ -77,7 +78,14 @@ def send_mail(subject, html, recipients, sender):
         pass
     else:
         raise KeyError
-    
+
+def connect_mongodb(url, app_name):
+    client = pymongo.MongoClient(os.environ['MONGO_URL'])
+    db = client[os.environ['APP_NAME']]
+
+    return db
+
+
 
 
 
