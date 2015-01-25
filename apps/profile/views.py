@@ -14,7 +14,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
 
-from apps.profile.utils import authenticate_linkedin, upload_file_to_dropbox
+from apps.profile.utils import authenticate_linkedin, upload_file_to_dropbox, get_linkedin_profile
 from apps.profile.forms import SubmitForm
 from apps.profile.models import Resume, Profile, Interest, Authorized
 
@@ -74,12 +74,15 @@ def user_login(request):
 def oauth(request):
 	code = request.GET['code']
 	access_token = authenticate_linkedin(code)
-	authorized = authenticate(access_token=access_token)
-	if authorized != False:
-		check_login = login(request, authorized)
-		profile = Profile.objects.get(user_id=authorized.id)
+	linkedin_id = get_linkedin_profile(access_token).linkedin_id
+	try:
+		authorized = Authorized.objects.get(linkedin_id=linkedin_id)
+	except ObjectDoesNotExist:
+		return render_to_response('profile/unauthorized.html', context_instance=RequestContext(request)) 
+	else:
+		user = authenticate(access_token=access_token)
+		check_login = login(request, user)
+		profile = Profile.objects.get(user_id=user.id)
 		client_code = Authorized.objects.get(linkedin_id=profile.linkedin_id).client_code
 		url = reverse('dashboard', args=(client_code,))
 		return HttpResponseRedirect(url)
-	else:
-		return render_to_response('profile/unauthorized.html', context_instance=RequestContext(request)) 

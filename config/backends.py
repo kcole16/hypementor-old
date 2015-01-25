@@ -17,50 +17,44 @@ class RestBackend(object):
         linkedin_id = user_details['linkedin_id']
         education = user_details['education']
         try:
-            authorized = Authorized.objects.get(linkedin_id=linkedin_id)
-        except ObjectDoesNotExist:
-            authorized = False
-            return authorized
-        else:
+            user = User.objects.get(username=username)
             try:
-                user = User.objects.get(username=username)
+                profile = Profile.objects.get(user=user)
                 try:
-                    profile = Profile.objects.get(user=user)
-                    try:
-                        profile['access_token'] = access_token
-                    except TypeError:
-                        pass
-                except ObjectDoesNotExist:
-                    profile = Profile(user=user, access_token=access_token)
-                profile.save()
-            except User.DoesNotExist:
-                user = User(username=username, first_name=first_name, 
-                        last_name=last_name, email=email, password='None')
-                user.save()
-                profile = Profile(user=user, linkedin_id=linkedin_id, education=education,
-                     access_token=access_token)
-                profile.save()
+                    profile['access_token'] = access_token
+                except TypeError:
+                    pass
+            except ObjectDoesNotExist:
+                profile = Profile(user=user, access_token=access_token)
+            profile.save()
+        except User.DoesNotExist:
+            user = User(username=username, first_name=first_name, 
+                    last_name=last_name, email=email, password='None')
+            user.save()
+            profile = Profile(user=user, linkedin_id=linkedin_id, education=education,
+                 access_token=access_token)
+            profile.save()
 
-                subject = "Welcome to HypeMentor"
-                recipient = user.email
-                html = """
-                    <center>
-                        <img src="https://dl.dropboxusercontent.com/s/kyf0uyixix1tuk3/hypementor.png" style="width:120px;height:70px;">
-                    </center><br>
-                    <p>
-                    %s,<br>
-                    <br>Welcome to HypeMentor!<br>
-                    <br>We'll be reviewing your background and interests, 
-                    and will send you our resume review along with an introduction to your mentor over the next 24-48 hours. 
-                    After that, it's up to you!<br>
-                    <br>Feel free to contact us at any time if you have any questions.<br>
-                    <br>Best,<br>
-                    <br>The HypeMentor Team
-                    </p>
-                    """ % user.first_name
-                sender = "kendall@hypementor.com"
-                send_mail(subject, html, recipient, sender)
-            return user
+            subject = "Welcome to HypeMentor"
+            recipient = user.email
+            html = """
+                <center>
+                    <img src="https://dl.dropboxusercontent.com/s/kyf0uyixix1tuk3/hypementor.png" style="width:120px;height:70px;">
+                </center><br>
+                <p>
+                %s,<br>
+                <br>Welcome to HypeMentor!<br>
+                <br>We'll be reviewing your background and interests, 
+                and will send you our resume review along with an introduction to your mentor over the next 24-48 hours. 
+                After that, it's up to you!<br>
+                <br>Feel free to contact us at any time if you have any questions.<br>
+                <br>Best,<br>
+                <br>The HypeMentor Team
+                </p>
+                """ % user.first_name
+            sender = "kendall@hypementor.com"
+            send_mail(subject, html, recipient, sender)
+        return user
 
     def get_user(self, user_id):
         try:
