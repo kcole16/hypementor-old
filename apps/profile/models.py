@@ -19,4 +19,8 @@ class Interest(models.Model):
 	position = models.CharField(max_length=500)
 	location = models.CharField(max_length=500)
 
+class Authorized(models.Model):
+	linkedin_id = models.CharField(max_length=500)
+	client_code = models.CharField(max_length=500)
+
 # Create your models here.

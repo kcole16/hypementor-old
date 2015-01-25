@@ -16,7 +16,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 from apps.profile.utils import authenticate_linkedin, upload_file_to_dropbox
 from apps.profile.forms import SubmitForm
-from apps.profile.models import Resume, Profile, Interest
+from apps.profile.models import Resume, Profile, Interest, Authorized
 
 from datetime import datetime
 from uuid import uuid4
@@ -24,7 +24,8 @@ import os
 
 @login_required
 def home(request):
-	return render_to_response('home.html', context_instance=RequestContext(request))
+	url = reverse('dashboard')
+	return redirect(url)
 
 @login_required
 def logout_view(request):
@@ -71,12 +72,12 @@ def user_login(request):
 def oauth(request):
 	code = request.GET['code']
 	access_token = authenticate_linkedin(code)
-	user = authenticate(access_token=access_token)
-	check_login = login(request, user)
-	try:
-		profile = Profile.objects.get(user_id=user.id)
-	except ObjectDoesNotExist:
-		url = reverse('home')
+	authorized = authenticate(access_token=access_token)
+	if authorized != False:
+		check_login = login(request, authorized)
+		profile = Profile.objects.get(user_id=authorized.id)
+		client_code = Authorized.objects.get(linkedin_id=profile.linkedin_id).client_code
+		url = reverse('dashboard', args=(client_code,))
+		return HttpResponseRedirect(url)
 	else:
-		url=reverse('submit')
-	return HttpResponseRedirect(url) 
+		return render_to_response('profile/unauthorized.html', context_instance=RequestContext(request)) 
