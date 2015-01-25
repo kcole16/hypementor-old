@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 
 from apps.dashboard.utils import connect_db
+from apps.dashboard.forms import IndustryForm
 
 import pymongo
 
@@ -19,13 +20,29 @@ from datetime import datetime
 from uuid import uuid4
 import os
 
-@login_required
 def dashboard(request, client_code):
-	query_url = "http://localhost:5000/mentors/%s/" % client_code
-	# print client_code
-	# db = connect_db('MONGOLAB_URI', 'MONGOLAB_APP_NAME')
-	# client_short_name = db.clients.find_one({'client_code':client_code})['short_name']
-	# mentors = eval('db.%s.find()' % client_short_name)
+	mentors = None
+	if request.POST:
+		form = IndustryForm(request.POST)
+		if form.is_valid():
+			industry = form.cleaned_data['industry']
+			db = connect_db('MONGOLAB_URI', 'APP_NAME')
+			client_short_name = db.clients.find_one({'client_code':client_code})['short_name']
+			query = "db.%s.find({'industry':'%s'})" % (client_short_name,industry)
+			print query
+			mentors = eval(query)
+		else:
+			print form.errors
+	else:
+		form = IndustryForm()
+	return render_to_response('dashboard/dashboard.html',{'form':form, 'mentors':mentors, 'client_code':client_code}, context_instance=RequestContext(request))
 
-	return render_to_response('dashboard/dashboard.html',{'query_url':query_url}, context_instance=RequestContext(request))
+def mentor_profile(request, client_code, mentor_id):
+	db = connect_db('MONGOLAB_URI', 'APP_NAME')
+	client_short_name = db.clients.find_one({'client_code':client_code})['short_name']
+	query = "db.%s.find_one({'linkedin_id':'%s'})" % (client_short_name, mentor_id)
+	print query
+	mentor = eval(query)
+	return render_to_response('dashboard/mentor_profile.html', {'mentor':mentor, 'client_code':client_code}, context_instance=RequestContext(request))
+
 
