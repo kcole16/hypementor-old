@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.conf import settings
 
-from apps.dashboard.utils import connect_db
+from apps.dashboard.utils import connect_db, search_es
 from apps.dashboard.forms import IndustryForm
 
 import pymongo
@@ -26,12 +26,13 @@ def dashboard(request, client_code):
 	if request.POST:
 		form = IndustryForm(request.POST)
 		if form.is_valid():
-			industry = form.cleaned_data['industry']
 			db = connect_db('MONGOLAB_URI', 'APP_NAME')
 			client_short_name = db.clients.find_one({'client_code':client_code})['short_name']
-			query = "db.%s.find({'industry':'%s'})" % (client_short_name,industry)
-			print query
-			mentors = eval(query)
+			query = form.cleaned_data['industry']
+			mentors = search_es(query, client_short_name)
+			# query = "db.%s.find({'industry':'%s'})" % (client_short_name,industry)
+			# print query
+			# mentors = eval(query)
 		else:
 			print form.errors
 	else:
