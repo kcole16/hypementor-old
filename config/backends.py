@@ -35,25 +35,25 @@ class RestBackend(object):
                  access_token=access_token)
             profile.save()
 
-            subject = "Welcome to HypeMentor"
-            recipient = user.email
-            html = """
-                <center>
-                    <img src="https://dl.dropboxusercontent.com/s/kyf0uyixix1tuk3/hypementor.png" style="width:120px;height:70px;">
-                </center><br>
-                <p>
-                %s,<br>
-                <br>Welcome to HypeMentor!<br>
-                <br>We'll be reviewing your background and interests, 
-                and will send you our resume review along with an introduction to your mentor over the next 24-48 hours. 
-                After that, it's up to you!<br>
-                <br>Feel free to contact us at any time if you have any questions.<br>
-                <br>Best,<br>
-                <br>The HypeMentor Team
-                </p>
-                """ % user.first_name
-            sender = "kendall@hypementor.com"
-            send_mail(subject, html, recipient, sender)
+            # subject = "Welcome to HypeMentor"
+            # recipient = user.email
+            # html = """
+            #     <center>
+            #         <img src="https://dl.dropboxusercontent.com/s/kyf0uyixix1tuk3/hypementor.png" style="width:120px;height:70px;">
+            #     </center><br>
+            #     <p>
+            #     %s,<br>
+            #     <br>Welcome to HypeMentor!<br>
+            #     <br>We'll be reviewing your background and interests, 
+            #     and will send you our resume review along with an introduction to your mentor over the next 24-48 hours. 
+            #     After that, it's up to you!<br>
+            #     <br>Feel free to contact us at any time if you have any questions.<br>
+            #     <br>Best,<br>
+            #     <br>The HypeMentor Team
+            #     </p>
+            #     """ % user.first_name
+            # sender = "kendall@hypementor.com"
+            # send_mail(subject, html, recipient, sender)
         return user
 
     def get_user(self, user_id):
