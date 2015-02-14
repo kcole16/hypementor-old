@@ -79,8 +79,8 @@ def send_mail(subject, html, recipients, sender):
     else:
         raise KeyError
 
-def connect_mongodb(url, app_name):
-    client = pymongo.MongoClient(os.environ['MONGO_URL'])
+def connect_mongodb():
+    client = pymongo.MongoClient(os.environ['MONGOLAB_URI'])
     db = client[os.environ['APP_NAME']]
 
     return db
