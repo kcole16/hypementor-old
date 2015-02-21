@@ -60,7 +60,7 @@ var SearchBox = React.createClass({displayName: "SearchBox",
   },
   queryDB: function(query) {
     $.ajax({
-      url: "http://localhost:5000/searchdb/c6846271b6174a0b9831ea1d34e4665c/",
+      url: "https://app.hypementor.com/searchdb/c6846271b6174a0b9831ea1d34e4665c/",
       dataType: 'json',
       data: {industry:query},
       success: function(mentors) {
