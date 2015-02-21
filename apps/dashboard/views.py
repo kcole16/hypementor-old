@@ -19,6 +19,7 @@ import pymongo
 from datetime import datetime
 from uuid import uuid4
 import os
+import json
 
 @login_required
 def dashboard(request, client_code):
@@ -30,14 +31,19 @@ def dashboard(request, client_code):
 			client_short_name = db.clients.find_one({'client_code':client_code})['short_name']
 			query = form.cleaned_data['industry']
 			mentors = search_es(query, client_short_name)
-			# query = "db.%s.find({'industry':'%s'})" % (client_short_name,industry)
-			# print query
-			# mentors = eval(query)
 		else:
 			print form.errors
 	else:
 		form = IndustryForm()
 	return render_to_response('dashboard/dashboard.html',{'form':form, 'mentors':mentors, 'client_code':client_code}, context_instance=RequestContext(request))
+
+def searchdb(request, client_code):
+	db = connect_db('MONGOLAB_URI', 'APP_NAME')
+	client_short_name = db.clients.find_one({'client_code':client_code})['short_name']
+	query = request.GET['industry']
+	mentors = json.dumps(search_es(query, client_short_name))
+
+	return HttpResponse(json.dumps(mentors))
 
 @login_required
 def mentor_profile(request, client_code, mentor_id):

@@ -3,7 +3,7 @@
 
 {% block content %}
 
-{% if mentors %}
+<!-- {% if mentors %}
 <h3>Mentors</h3>
 <br>
 <table class="mentor-table table table-striped table-bordered">
@@ -29,13 +29,14 @@
 <div class="search-form">
    <form class="form-inline" role="form" action="{% url 'dashboard' client_code %}" method="POST" >
    	{% csrf_token %}
+        <i class="fa fa-search"></i>
         <input class="form-control" id="query" type="text" name="industry" placeholder="Enter an industry, company, or position" required >
     <button class="btn btn-success" id="query">Submit</button>
   </form>
 </div>
-{% endif %}
- <!--
+{% endif %} -->
+ 
       <div id="content"></div>
       <script type="text/javascript" src="{{ STATIC_URL }}js/dashboard.js"></script>
- -->
+ 
 {% endblock content %}
