@@ -79,6 +79,32 @@ button#query {
   border: none;
 }
 
+.results {
+  min-height: 100px;
+  width: 80%;
+  text-transform: none;
+  background-color: #f9fafb;  border:none;
+}
+
+.results img {
+  margin-top: 1%;
+  margin-left: 10px;
+  float: left;
+  border-color: transparent;
+  border-width: 5px;
+}
+.details {
+  text-align: left;
+}
+
+#name {
+  font-size: 22px;
+}
+
+#message {
+  margin-top: 4%;
+}
+
 /*
 * {
     background-color: transparent;

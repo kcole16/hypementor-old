@@ -26,26 +26,30 @@ var MentorList = React.createClass({displayName: "MentorList",
   render: function() {
       var mentors = this.props.mentors;
       return (
-          React.createElement("table", {className: "table table-striped table-bordered"}, 
-            React.createElement("tr", null, 
-              React.createElement("th", null, "Name"), 
-              React.createElement("th", null, "Email"), 
-              React.createElement("th", null, "Industry"), 
-              React.createElement("th", null, "Position"), 
-              React.createElement("th", null, "Location")
-            ), 
-            React.createElement("tr", null, 
+          React.createElement("br"), 
+          React.createElement("div", {className: "results"}, 
             mentors.map(function(mentor) {
               return [
-              React.createElement("td", null, mentor.first_name, " ", mentor.last_name),
-              React.createElement("td", null, mentor.email),
-              React.createElement("td", null, mentor.industry),
-              React.createElement("td", null, mentor.headline),
-              React.createElement("td", null, mentor.location),
+              React.createElement("div", {className: "row"}, 
+                React.createElement("div", {className: "col-md-2"}, 
+                  React.createElement("img", {className: "img", src: mentor.picture_url}, null)
+                ),
+                React.createElement("div", {className: "details col-md-6"}, 
+                  React.createElement("p", {id: "name"}, mentor.first_name+" "+mentor.last_name),
+                  React.createElement("p", {id: "headline"}, mentor.headline),
+                  React.createElement("p", {id: "location"}, mentor.location)
+                ),
+                React.createElement("div", {className: "col-md-4", id: "message"}, 
+                  React.createElement("button", {className: "btn btn-primary"}, "Message",
+                    React.createElement("a", {href: "mailto:"+mentor.email, target: "_top"})
+                  )
+                )
+              )
               ];
-            }), ";"
+
+            })
             )
-          )
+  
         );
     }
 });
@@ -76,8 +80,8 @@ var SearchBox = React.createClass({displayName: "SearchBox",
     console.log(mentors)
     return (
       React.createElement("div", {className: "searchBox"}, 
-        React.createElement("h3", null, "Mentor Search"), 
         React.createElement(SearchForm, {onSearchSubmit: this.handleSearchSubmit}),
+        React.createElement("br"), 
          search ? React.createElement(MentorList, {mentors: mentors}) : null
       )
     );
