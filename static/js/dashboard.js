@@ -41,8 +41,8 @@ var MentorList = React.createClass({displayName: "MentorList",
                     React.createElement("p", {id: "location"}, mentor.location)
                   ),
                   React.createElement("div", {className: "col-md-4", id: "message"}, 
-                    React.createElement("button", {className: "btn btn-primary"}, "Message",
-                      React.createElement("a", {href: "mailto:"+mentor.email, target: "_top"})
+                    React.createElement("a", {href: "mailto:"+mentor.email, target: "_top"},
+                      React.createElement("button", {className: "btn btn-primary"}, "Message")
                     )
                   )
                 )
