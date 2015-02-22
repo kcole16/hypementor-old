@@ -79,13 +79,6 @@ button#query {
   border: none;
 }
 
-.results {
-  min-height: 100px;
-  width: 80%;
-  text-transform: none;
-  background-color: #f9fafb;  border:none;
-}
-
 .results img {
   margin-top: 1%;
   margin-left: 10px;
@@ -103,6 +96,18 @@ button#query {
 
 #message {
   margin-top: 4%;
+}
+
+.person {
+  min-height: 100px;
+  width: 80%;
+  text-transform: none;
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e9eaec;
+}
+
+.person:hover {
+  background-color: #F5F5F5;
 }
 
 /*

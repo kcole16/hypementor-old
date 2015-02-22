@@ -13,6 +13,7 @@ from django.conf import settings
 
 from apps.dashboard.utils import connect_db, search_es
 from apps.dashboard.forms import IndustryForm
+from apps.profile.models import Authorized, Profile
 
 import pymongo
 
@@ -35,9 +36,11 @@ def dashboard(request, client_code):
 			print form.errors
 	else:
 		form = IndustryForm()
-	return render_to_response('dashboard/dashboard.html',{'form':form, 'mentors':mentors, 'client_code':client_code}, context_instance=RequestContext(request))
+	return render_to_response('dashboard/dashboard.html',{'form':form, 'mentors':mentors}, context_instance=RequestContext(request))
 
-def searchdb(request, client_code):
+def searchdb(request):
+	linkedin_id = Profile.objects.get(user_id=request.user.id).linkedin_id
+	client_code = Authorized.objects.get(linkedin_id=linkedin_id).client_code
 	db = connect_db('MONGOLAB_URI', 'APP_NAME')
 	client_short_name = db.clients.find_one({'client_code':client_code})['short_name']
 	query = request.GET['industry']
@@ -50,7 +53,6 @@ def mentor_profile(request, client_code, mentor_id):
 	db = connect_db('MONGOLAB_URI', 'APP_NAME')
 	client_short_name = db.clients.find_one({'client_code':client_code})['short_name']
 	query = "db.%s.find_one({'linkedin_id':'%s'})" % (client_short_name, mentor_id)
-	print query
 	mentor = eval(query)
 	return render_to_response('dashboard/mentor_profile.html', {'mentor':mentor, 'client_code':client_code}, context_instance=RequestContext(request))
 

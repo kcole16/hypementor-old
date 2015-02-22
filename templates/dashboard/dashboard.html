@@ -3,38 +3,6 @@
 
 {% block content %}
 
-<!-- {% if mentors %}
-<h3>Mentors</h3>
-<br>
-<table class="mentor-table table table-striped table-bordered">
-  <tr>
-    <th>Name</th>
-    <th>Industry</th>
-    <th>Position</th>
-    <th>Location</th>
-    <th>Profile</th>
-  </tr>
-  {% for mentor in mentors %}
-  <tr>
-    <td>{{ mentor.first_name }} {{ mentor.last_name }}</td>
-    <td>{{ mentor.industry }}</td>
-    <td>{{ mentor.headline }}</td>
-    <td>{{ mentor.location }}</td>
-    <td><a href="{% url 'mentor_profile' client_code mentor.linkedin_id %}">View Profile</a></td>
-  </tr>
-  {% endfor %}
-</table>
-{% else %}
-<br>
-<div class="search-form">
-   <form class="form-inline" role="form" action="{% url 'dashboard' client_code %}" method="POST" >
-   	{% csrf_token %}
-        <i class="fa fa-search"></i>
-        <input class="form-control" id="query" type="text" name="industry" placeholder="Enter an industry, company, or position" required >
-    <button class="btn btn-success" id="query">Submit</button>
-  </form>
-</div>
-{% endif %} -->
       <br>
  
       <div id="content"></div>

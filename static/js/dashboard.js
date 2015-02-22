@@ -30,18 +30,20 @@ var MentorList = React.createClass({displayName: "MentorList",
           React.createElement("div", {className: "results"}, 
             mentors.map(function(mentor) {
               return [
-              React.createElement("div", {className: "row"}, 
-                React.createElement("div", {className: "col-md-2"}, 
-                  React.createElement("img", {className: "img", src: mentor.picture_url}, null)
-                ),
-                React.createElement("div", {className: "details col-md-6"}, 
-                  React.createElement("p", {id: "name"}, mentor.first_name+" "+mentor.last_name),
-                  React.createElement("p", {id: "headline"}, mentor.headline),
-                  React.createElement("p", {id: "location"}, mentor.location)
-                ),
-                React.createElement("div", {className: "col-md-4", id: "message"}, 
-                  React.createElement("button", {className: "btn btn-primary"}, "Message",
-                    React.createElement("a", {href: "mailto:"+mentor.email, target: "_top"})
+              React.createElement("div", {className: "person"}, 
+                React.createElement("div", {className: "row"}, 
+                  React.createElement("div", {className: "col-md-2"}, 
+                    React.createElement("img", {className: "img", src: mentor.picture_url}, null)
+                  ),
+                  React.createElement("div", {className: "details col-md-6"}, 
+                    React.createElement("p", {id: "name"}, mentor.first_name+" "+mentor.last_name),
+                    React.createElement("p", {id: "headline"}, mentor.headline),
+                    React.createElement("p", {id: "location"}, mentor.location)
+                  ),
+                  React.createElement("div", {className: "col-md-4", id: "message"}, 
+                    React.createElement("button", {className: "btn btn-primary"}, "Message",
+                      React.createElement("a", {href: "mailto:"+mentor.email, target: "_top"})
+                    )
                   )
                 )
               )
@@ -60,7 +62,7 @@ var SearchBox = React.createClass({displayName: "SearchBox",
   },
   queryDB: function(query) {
     $.ajax({
-      url: "https://app.hypementor.com/searchdb/c6846271b6174a0b9831ea1d34e4665c/",
+      url: "/searchdb/",
       dataType: 'json',
       data: {industry:query},
       success: function(mentors) {
