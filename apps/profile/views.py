@@ -76,13 +76,13 @@ def oauth(request):
 	access_token = authenticate_linkedin(code)
 	linkedin_id = get_linkedin_profile(access_token)['linkedin_id']
 	db = connect_mongodb()
-	authorized = db.authorized.find({'linkedin_id':linkedin_id})
+	authorized = db.authorized.find_one({'linkedin_id':linkedin_id})
 	if authorized == None:
 		return render_to_response('profile/unauthorized.html', context_instance=RequestContext(request)) 
 	else:
 		user = authenticate(access_token=access_token)
 		check_login = login(request, user)
 		profile = Profile.objects.get(user_id=user.id)
-		client_code = authorized[0]['client_code']
+		client_code = authorized['client_code']
 		url = reverse('dashboard', args=(client_code,))
 		return HttpResponseRedirect(url)
