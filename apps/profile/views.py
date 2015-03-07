@@ -83,5 +83,6 @@ def oauth(request):
 		check_login = login(request, user)
 		profile = Profile.objects.get(user_id=user.id)
 		client_code = authorized['client_code']
+		new_auth = Authorized(linkedin_id=linkedin_id, client_code=client_code)
 		url = reverse('dashboard', args=(client_code,))
 		return HttpResponseRedirect(url)
