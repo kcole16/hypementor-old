@@ -22,3 +22,14 @@ def search_es(query, index):
 	})
 	results = [ mentor['_source'] for mentor in res['hits']['hits'] ]
 	return results
+
+def send_mail(subject, message, recipients, sender):
+    ret = requests.post(
+        "https://api.mailgun.net/v2/hypementor.com/messages",
+        auth=("api", os.environ['MAILGUN_API_KEY']),
+        data={"from": "%s" % sender,
+              "to": recipients,
+              "subject": subject,
+              "text": message})
+    print ret.json()
+    return ret

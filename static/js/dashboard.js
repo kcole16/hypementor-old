@@ -13,9 +13,13 @@ var SearchForm = React.createClass({displayName: "SearchForm",
     return (
       React.createElement("div", {className: "search-form"}, 
         React.createElement("form", {className: "form-inline", onSubmit: this.handleSubmit}, 
-          React.createElement("i", {className: "fa fa-search"}), 
-          React.createElement("input", {className: "form-control", id:"query", type: "text", ref: "query", 
-            placeholder:"Enter an industry, company, or position", name:"industry"}),
+          React.createElement("div", {className: "form-group"},
+            React.createElement("i", {className: "fa fa-search"}) 
+          ),
+          React.createElement("div", {className: "form-group", id: "query"},
+            React.createElement("input", {className: "form-control", id:"query", type: "text", ref: "query", 
+              placeholder:"Enter an industry, company, or position", name:"industry"})
+            ),
           React.createElement("button", {className: "btn btn-success", type: "submit", id:"query"}, "Submit")
         ) 
       )
@@ -32,7 +36,7 @@ var MentorList = React.createClass({displayName: "MentorList",
               return [
               React.createElement("div", {className: "person"}, 
                 React.createElement("div", {className: "row"}, 
-                  React.createElement("div", {className: "col-md-2"}, 
+                  React.createElement("div", {className: "col-md-2 img"}, 
                     React.createElement("img", {className: "img", src: mentor.picture_url}, null)
                   ),
                   React.createElement("div", {className: "details col-md-6"}, 
@@ -41,9 +45,13 @@ var MentorList = React.createClass({displayName: "MentorList",
                     React.createElement("p", {id: "location"}, mentor.location)
                   ),
                   React.createElement("div", {className: "col-md-4", id: "message"}, 
-                    React.createElement("a", {href: "mailto:"+mentor.email, target: "_top"},
+                    React.createElement("a", {href: "/mentor_profile/"+mentor.linkedin_id+"/"},
+                      React.createElement("button", {className: "btn btn-default"}, " View Profile")
+                    ),
+                    React.createElement("a", {href: "/message/?mi="+mentor.linkedin_id, target: "_blank"},
                       React.createElement("button", {className: "btn btn-primary"}, "Message")
                     )
+
                   )
                 )
               )
@@ -58,7 +66,7 @@ var MentorList = React.createClass({displayName: "MentorList",
 
 var SearchBox = React.createClass({displayName: "SearchBox",
   getInitialState: function() {
-    return { search: null, mentors: [], formExists: true };
+    return { search: null, mentors: null, formExists: true };
   },
   queryDB: function(query) {
     $.ajax({
@@ -78,8 +86,7 @@ var SearchBox = React.createClass({displayName: "SearchBox",
   render: function() {
     var search = this.state.search;
     var formExists = this.state.formExists;
-    var mentors = $.parseJSON(this.state.mentors)
-    console.log(mentors)
+    var mentors = $.parseJSON(this.state.mentors);
     return (
       React.createElement("div", {className: "searchBox"}, 
         React.createElement(SearchForm, {onSearchSubmit: this.handleSearchSubmit}),

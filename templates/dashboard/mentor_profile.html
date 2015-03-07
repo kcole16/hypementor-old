@@ -12,12 +12,18 @@
     <th>Education</th>
     <th>Industry</th>
     <th>Location</th>
+    <th>Positions</th>
   </tr>
   <tr>
     <td>{{mentor.email}}</td>
     <td>{{ mentor.first_name }} {{ mentor.last_name }}</td>
     <td>{{ mentor.industry }}</td>
     <td>{{ mentor.location }}</td>
+    <td>
+      {% for position in mentor.positions %}
+      <p>{{ position.title }} at {{ position.company }}</p>
+      {% endfor %}
+    </td>
   </tr>
 </table>
 <h3><a href="{% url 'dashboard' client_code %}">Back</a></h3>
