@@ -46,8 +46,8 @@ def message(request):
 		if form.is_valid():
 			user = User.objects.get(id = request.user.id)
 			linkedin_id = Profile.objects.get(user_id = user.id).linkedin_id
-			client_code = Authorized.objects.get(linkedin_id=linkedin_id).client_code
 			db = connect_db('MONGOLAB_URI', 'APP_NAME')
+			client_code = db.authorized.find_one({'linkedin_id':linkedin_id})['client_code']
 			client_short_name = db.clients.find_one({'client_code':client_code})['short_name']
 			subject = form.cleaned_data['subject']
 			message = form.cleaned_data['message']
@@ -62,11 +62,10 @@ def message(request):
 		form = MessageForm()
 	return render_to_response('dashboard/message.html',{'form':form, 'mentor_id':mentor_id}, context_instance=RequestContext(request))
 
-
 def searchdb(request):
 	linkedin_id = Profile.objects.get(user_id=request.user.id).linkedin_id
-	client_code = Authorized.objects.get(linkedin_id=linkedin_id).client_code
 	db = connect_db('MONGOLAB_URI', 'APP_NAME')
+	client_code = db.authorized.find_one({'linkedin_id':linkedin_id})['client_code']
 	client_short_name = db.clients.find_one({'client_code':client_code})['short_name']
 	query = request.GET['industry']
 	mentors = json.dumps(search_es(query, client_short_name))
@@ -75,8 +74,8 @@ def searchdb(request):
 
 @login_required
 def mentor_profile(request, linkedin_id):
-	client_code = Authorized.objects.get(linkedin_id=linkedin_id).client_code
 	db = connect_db('MONGOLAB_URI', 'APP_NAME')
+	client_code = db.authorized.find_one({'linkedin_id':linkedin_id})['client_code']
 	client_short_name = db.clients.find_one({'client_code':client_code})['short_name']
 	query = "db.%s.find_one({'linkedin_id':'%s'})" % (client_short_name, linkedin_id)
 	mentor = eval(query)
