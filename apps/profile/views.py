@@ -15,7 +15,6 @@ from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
 
 from apps.profile.utils import authenticate_linkedin, upload_file_to_dropbox, get_linkedin_profile, connect_mongodb
-from apps.profile.forms import SubmitForm
 from apps.profile.models import Resume, Profile, Interest, Authorized
 
 from datetime import datetime
