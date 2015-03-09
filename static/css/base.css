@@ -18,6 +18,7 @@ body {
  * Global add-ons
  */
 
+
 .fa-bars {
   width:30px;
   height:30px;
@@ -90,6 +91,8 @@ input:focus{
   width: 80%;
   background-color: #f9fafb;
   box-shadow:  0 1px 2px 0 rgba(0,0,0,.2);
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .search-form form {
@@ -118,10 +121,13 @@ button#query {
 .results {
   width: 80%;
   box-shadow:  0 1px 2px 0 rgba(0,0,0,.2);
+  margin-right: auto;
+  margin-left: auto;
 }
 .results img {
   padding-top: 10px;
-  border-color: transparent;
+/*  padding-left: 20px;
+*/  border-color: transparent;
   border-width: 5px;
 }
 .details {
@@ -151,6 +157,17 @@ div#message a{
 .person:hover {
   background-color: #F5F5F5;
 }
+
+div.message-form {
+  width: 65%;
+  margin-right: 10%;
+}
+
+div.message-form button {
+  width:100px;
+}
+
+
 
 
 

@@ -4,26 +4,36 @@
 
 {% block content %}
 <br> <br>
-<form class="form-horizontal" method="post" action="{% url 'message'%}" role="form" >
-{% csrf_token %}
-  <div class="form-group">
-    <label for="subject" class="col-sm-2 control-label">Subject</label>
-    <div class="col-sm-10">
-      <input type="text" name="subject" class="form-control" id="subject">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="message" class="col-sm-2 control-label">Message</label>
-    <div class="col-sm-10">
-      <textarea type="text" name="message" class="form-control" id="message"></textarea>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Submit</button>
-    </div>
-    <input hidden type="text" value="{{ mentor_id }}" name="mentor_id">
-  </div>
-</form>
+{% if submitted == False %}
 
+<h4>Send Message to {{ mentor.first_name }} {{ mentor.last_name }}</h4><br>
+<div class="message-form">
+  <form class="form-horizontal message-form" method="post" action="{% url 'message'%}" role="form" >
+  {% csrf_token %}
+    <div class="form-group">
+      <label for="subject" class="col-sm-2 control-label">Subject</label>
+      <div class="col-sm-10">
+        <input type="text" name="subject" class="form-control" id="subject">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="message" class="col-sm-2 control-label">Message</label>
+      <div class="col-sm-10">
+        <textarea type="text" rows="4" name="message" class="form-control" id="message"></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-md btn-primary">Submit</button>
+      </div>
+      <input hidden type="text" value="{{ mentor_id }}" name="mentor_id">
+    </div>
+  </form>
+</div>
+{% else %}
+<div class="message-success">
+  <h3>Your message has been sent to {{ mentor.first_name }} {{ mentor.last_name }}</h3>
+  <h3><a href="{% url 'home' %}">Back</a></h3>
+</div>
+{% endif %}
 {% endblock content %}
