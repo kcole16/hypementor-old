@@ -24,12 +24,15 @@ import os
 import json
 
 @login_required
-def dashboard(request, client_code):
+def dashboard(request):
 	mentors = None
 	if request.POST:
 		form = IndustryForm(request.POST)
 		if form.is_valid():
+			user = User.objects.get(id = request.user.id)
+			linkedin_id = Profile.objects.get(user_id = user.id).linkedin_id
 			db = connect_mongodb()
+			client_code = db.authorized.find_one({'linkedin_id':linkedin_id})['client_code']
 			client_short_name = db.clients.find_one({'client_code':client_code})['short_name']
 			query = form.cleaned_data['industry']
 			mentors = search_es(query, client_short_name)

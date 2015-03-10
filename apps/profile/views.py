@@ -26,7 +26,7 @@ def home(request):
 	profile = Profile.objects.get(user_id=request.user.id)
 	db = connect_mongodb()
 	client_code = db.authorized.find_one({'linkedin_id':profile.linkedin_id})['client_code']
-	url = reverse('dashboard', args=(client_code,))
+	url = reverse('dashboard')
 	return redirect(url)
 
 @login_required
@@ -85,5 +85,5 @@ def oauth(request):
 		profile = Profile.objects.get(user_id=user.id)
 		client_code = authorized['client_code']
 		new_auth = Authorized(linkedin_id=linkedin_id, client_code=client_code)
-		url = reverse('dashboard', args=(client_code,))
+		url = reverse('dashboard')
 		return HttpResponseRedirect(url)
