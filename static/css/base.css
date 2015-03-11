@@ -59,7 +59,7 @@ ul.navbar-right {
 .main .page-header {
   margin-top: 0;
 }
-input#query {
+input#tags {
   font-size: 16px;
   min-height: 70px;
   float: left;

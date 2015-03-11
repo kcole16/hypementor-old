@@ -17,7 +17,7 @@ var SearchForm = React.createClass({displayName: "SearchForm",
             React.createElement("i", {className: "fa fa-search"}) 
           ),
           React.createElement("div", {className: "form-group", id: "query"},
-            React.createElement("input", {className: "form-control", id:"query", type: "text", ref: "query", 
+            React.createElement("input", {className: "form-control", id:"tags", type: "text", ref: "query", 
               placeholder:"Enter an industry, company, or position", name:"industry"})
             ),
           React.createElement("button", {className: "btn btn-success", type: "submit", id:"query"}, "Submit")

@@ -16,12 +16,13 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/base.css" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery.tagsinput.css" />
+
 
     {% block extra_styles %}{% endblock extra_styles %}
     {% endblock styles %}
 
     {% block javascript %}
-
     <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="{{ STATIC_URL }}js/JSXTransformer.js"></script>
@@ -29,6 +30,9 @@
 
 
     {% endblock javascript %}
+      {% block extraJS %}
+
+      {% endblock %}
 
     {% block extra_head %}{% endblock extra_head %}
   </head>
