@@ -2,6 +2,7 @@
 {% block title %}Dashboard{% endblock title %}
 {% block extraJS %}
     <script src="{{ STATIC_URL }}js/jquery.tagsinput.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/2/algoliasearch.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -9,9 +10,4 @@
 <br><br>
 <div id="content"></div>
 <script type="text/javascript" src="{{ STATIC_URL }}js/dashboard.js"></script>
-<script type="text/javascript">
-$( document ).ready(function() {
-    $('#tags').tagsInput();
-});
-</script>
 {% endblock content %}

@@ -9,9 +9,10 @@ body {
   margin-left: auto;
   background: #e9eaec;
 }
-/*.container-fluid#navbar {
-  background-color: #f9fafb;
-}*/
+.container-fluid#navbar {
+  background:url("http://www.virginia.edu/virginia/images/uva-logo-white.png") 0 0 no-repeat;
+
+}
 
 
 /*
@@ -22,7 +23,7 @@ body {
 .fa-bars {
   width:30px;
   height:30px;
-  color:black;
+  color:#f36f21;
 }
 
 .sub-header {
@@ -32,8 +33,8 @@ body {
 
 
 .navbar{
-  background-color: white;
-  height: 60px;
+  background-color: #002654;
+  height: 70px;
   box-shadow: 0.5px 0.5px 1px #888888;
 
 }
@@ -87,8 +88,8 @@ input:focus{
 }
 
 .search-form {
-  min-height: 70px;
-  width: 80%;
+  min-height: 100px;
+  width: 75%;
   background-color: #f9fafb;
   box-shadow:  0 1px 2px 0 rgba(0,0,0,.2);
   margin-right: auto;
@@ -108,18 +109,12 @@ i.fa-search {
   padding-right: 10px;
 }
 
-button#query {
-  background-color: #dde2e7;
-  color: black;
-  border: none;
-}
-
 .col-md-2#img {
   margin-left: 10px;
 }
 
 .results {
-  width: 80%;
+  width: 75%;
   box-shadow:  0 1px 2px 0 rgba(0,0,0,.2);
   margin-right: auto;
   margin-left: auto;
@@ -166,6 +161,68 @@ div.message-form {
 div.message-form button {
   width:100px;
 }
+
+.ph-button {
+  width: 99px;
+  height: 34px;
+  border-style: solid;
+  border-width: 0px 0px 2px;
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+  color: #FFFFFF;
+  border-radius: 3px;
+  cursor: pointer;
+  display: inline-block;
+  font-style: normal;
+  overflow: hidden;
+  text-align: center;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: Helvetica,Arial,sans-serif;
+  padding-top: 5px;
+  font-weight: 500;
+  font-size: 16px;
+}
+.ph-btn-white {
+    background-color: #FF7400;
+    border-color: #A74C00;
+
+}
+.ph-btn-white:hover, .ph-btn-white:focus, .ph-btn-white:active {
+    background-color: #E57111;
+    border-color: #A74C00;
+}
+.ph-btn-blue {
+
+    border-color: #326E99;
+    background-color: #3F8ABF;
+}
+
+.ph-btn-blue:hover, .ph-btn-blue:focus, .ph-btn-blue:active {
+    background-color: #397CAC;
+    border-color: #326E99;
+}
+
+.ph-btn-gray {
+
+     background-color: #C6CCD2;
+     border-color: #AAB3BB;
+}
+.ph-btn-gray:hover, .ph-btn-gray:focus, .ph-btn-gray:active {
+    background-color: #B8BFC7;
+    border-color: #AAB3BB;
+}
+
+select.styled-select{
+   background: transparent;
+   width: 100px;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 34px;
+   }
 
 
 
