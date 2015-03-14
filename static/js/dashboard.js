@@ -1,59 +1,91 @@
 var SearchForm = React.createClass({displayName: "SearchForm",
   getInitialState: function() {
-    return { queryValue: null };
+    return { currentSearch: "" };
+  },
+  autoComplete: function() {
+    var algolia = new AlgoliaSearch('J5OKZCKMBB', 'b3342978705ee0d7158eedb3acec199d');
+    // replace YourlocationsIndexName & YourindustrysIndexName by the name of the indexes you want to query.
+    var locations = algolia.initIndex('LOCATIONS');
+    var industries = algolia.initIndex('INDUSTRIES');
+
+    // Mustache templating by Hogan.js (http://mustache.github.io/)
+    var templateIndustry = Hogan.compile('<div class="industry">' +
+      '<div class="industry">{{{ _highlightResult.name.value }}}</div>' +
+    '</div>');
+    var templateLocation = Hogan.compile('<div class="location">' +
+      '<div class="city">{{{ _highlightResult.city.value }}}</div>' +
+      '<div class="state">{{{ _highlightResult.state.value }}}</div>' +
+    '</div>');
+
+    // typeahead.js initialization
+    $('#mentors').typeahead({ hint: false }, [
+      {
+        source: industries.ttAdapter({ hitsPerPage: 3 }),
+        displayKey: 'name',
+        templates: {
+          header: '<div class="category">Industries</div>',
+          suggestion: function(hit) { return templateIndustry.render(hit); }
+        }
+      },
+      {
+        source: locations.ttAdapter({ hitsPerPage: 3 }),
+        displayKey: 'city',
+        templates: {
+          header: '<div class="category">Locations</div>',
+          suggestion: function(hit) { return templateLocation.render(hit); }
+        }
+      }
+    ]);
+  },
+  componentDidMount: function(){
+    $('#tags').tagsInput();
+    this.autoComplete();
+  },
+  clearAndFocusInput: function() {
+      // Clear the input
+    this.refs.query.getDOMNode().value = '';
+    React.findDOMNode(this.refs.query).focus();   // Boom! Focused!
   },
   componentDidUpdate: function(){
-    $('#tags').tagsInput();
+    this.clearAndFocusInput();
+    this.autoComplete();
   },
   handleSubmit: function(e) {
+    $('.search-form').css("min-height", "100px");
+    $('div.form-group#query').css("height", "60px");
+    $('input#mentors').css("height", "60px");
     e.preventDefault();
     var query = this.refs.query.getDOMNode().value.trim();
     if (!query) {
       return;
     }
-    this.props.onSearchSubmit(query);
+    $('#tags').addTag(query);
+    if (this.state.currentSearch !== null){
+      newInput = this.state.currentSearch+" "+query;
+    } else {
+      newInput = query;
+    }
     this.refs.query.getDOMNode().value = '';
+    this.props.handleQuery(newInput);
+    this.setState({currentSearch: newInput});
     return;
   },
-  handleChange: function(e){
-    var selectedOption = e.target.value;
-    this.setState({queryValue:selectedOption});
-    this.props.onIndustryClick(selectedOption);
-  },
   render: function() {
-    var industry_options = ['Industry','Finance', 'Management Consulting'];
-    var location_options = ['Location','Washington D.C.', 'Lisbon', 'San Francisco']
-    var queryValue = this.state.queryValue;
-    var selectIndustryValue = 'Industry';
-    var selectLocationValue = 'Location';
-    var iOptions = industry_options.map(function(item, index){
-      return React.createElement("option", {key: index, value:item }, item)
-    });
-    var lOptions = location_options.map(function(item, index){
-      return React.createElement("option", {key: index, value:item }, item)
-    });
     return (
       React.createElement("div", {className: "search-form"}, 
         React.createElement("form", {className: "form-inline", onSubmit: this.handleSubmit}, 
-          React.createElement("div", {className: "form-group"},
+          React.createElement("div", {className: "form-group search-icon"},
             React.createElement("i", {className: "fa fa-search"}) 
           ),
-          React.createElement("div", {className: "form-group", id: "query"},
-            queryValue ? React.createElement("input", {className: "form-control", id:"tags", type: "text", ref: "query", 
-              placeholder:"Enter an industry, company, or position", name:"industry", autocomplete:"off",
-              spellcheck:"off", autocorrect:"off", value: queryValue}): React.createElement("input", {className: "form-control", id:"tags", type: "text", ref: "query", 
+          React.createElement("div", {className: "form-group", id: "query", onClick: this.handleSubmit},
+            React.createElement("input", {className: "form-control", id:"mentors", type: "text", ref:"query", 
               placeholder:"Enter an industry, company, or position", name:"industry", autocomplete:"off",
               spellcheck:"off", autocorrect:"off"})
             ),
-          React.createElement("button", {className: "ph-button ph-btn-gray", type: "submit"}, "Submit"),
-          React.createElement("div", {className: "form-group", id: "query"},
-            React.createElement("select", {className: "styled-select", onChange:this.handleChange, value:selectIndustryValue }, iOptions
-              ),
-            React.createElement("select", {className: "styled-select", onChange:this.handleChange, value:selectLocationValue }, lOptions
-              )
+          React.createElement("div", {className: "form-group", id:"tags"}
             )
-        ) 
       )
+    )
     );
   }
 });
@@ -109,9 +141,9 @@ var SearchBox = React.createClass({displayName: "SearchBox",
       }
       index.search(query, searchCallback.bind(this));
   },
-  handleIndustryClick: function(value) {
-    // this.queryDB(value);
-    // this.setState({search: true});
+  handleQuery: function(value) {
+    this.queryDB(value);
+    this.setState({search: true});
   },
   handleSearchSubmit: function(query) {
     this.queryDB(query);
@@ -125,7 +157,7 @@ var SearchBox = React.createClass({displayName: "SearchBox",
     var queryValue = this.state.queryValue;
     return (
       React.createElement("div", {className: "searchBox"}, 
-        React.createElement(SearchForm, {onSearchSubmit: this.handleSearchSubmit, onIndustryClick: this.handleIndustryClick}),
+        React.createElement(SearchForm, {handleQuery: this.handleQuery}),
         React.createElement("br"), 
          search ? React.createElement(MentorList, {mentors: mentors}) : null
       )

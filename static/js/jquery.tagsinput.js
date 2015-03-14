@@ -179,7 +179,7 @@
       interactive:true,
       defaultText:'',
       minChars:0,
-      width:'300px',
+      width:'100%',
       height:'70px',
       autocomplete: {selectFirst: false },
       hide:true,

@@ -1,8 +1,10 @@
 div.tagsinput {
-    width:300px;
+    width:70%;
     height:70px;
     display: table-cell;
-    vertical-align: middle;
+    vertical-align: top;
+    float: left;
+    margin-left: 13%; 
 }
 div.tagsinput span.tag {
     -moz-border-radius:2px;
@@ -31,7 +33,6 @@ div.tagsinput input {
     font-family: helvetica; 
     font-size: 13px; 
     border:1px solid transparent; 
-    padding:5px; 
     background: transparent; 
     color: #000; 
     outline:0px;  
