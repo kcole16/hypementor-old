@@ -51,6 +51,8 @@ var SearchForm = React.createClass({displayName: "SearchForm",
     this.autoComplete();
   },
   handleSubmit: function(e) {
+    $('div.form-group.search-icon').css("height", "10px");
+    $('div.form-group#submit').css("height", "20px");
     $('.search-form').css("min-height", "100px");
     $('div.form-group#query').css("height", "60px");
     $('input#mentors').css("height", "60px");
@@ -79,9 +81,12 @@ var SearchForm = React.createClass({displayName: "SearchForm",
           ),
           React.createElement("div", {className: "form-group", id: "query", onClick: this.handleSubmit},
             React.createElement("input", {className: "form-control", id:"mentors", type: "text", ref:"query", 
-              placeholder:"Enter an industry, company, or position", name:"industry", autocomplete:"off",
+              placeholder:"Search by location, industry, or company", name:"industry", autocomplete:"off",
               spellcheck:"off", autocorrect:"off"})
             ),
+          React.createElement("div", {className: "form-group", id:"submit"},
+            React.createElement("button", {className: "ph-button ph-btn-gray", type: "submit"}, "Submit")
+          ),
           React.createElement("div", {className: "form-group", id:"tags"}
             )
       )

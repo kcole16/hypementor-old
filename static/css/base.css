@@ -21,6 +21,7 @@ body {
 
 
 .fa-bars {
+  padding-top: 10px;
   width:30px;
   height:30px;
   color:#f36f21;
@@ -64,13 +65,10 @@ input#mentors {
   font-size: 16px;
   min-height: 70px;
   float: left;
-  width:100%;
   min-width: 350px;
   text-transform: none;
   border-radius: 0;
   outline:none;
-  -webkit-appearance: none;
-  -webkit-user-select: none;
   background-color:transparent;
   border:none;
   box-shadow: none;
@@ -78,17 +76,13 @@ input#mentors {
 
 div.form-group#query {
   height: 70px;
-  margin-right: 40%;
+  margin-right: 30%;
 }
-
 input:focus{
     outline:none;
-    -webkit-appearance: none;
-    -webkit-user-select: none;
     background:none;
 
 }
-
 .search-form {
   min-height: 70px;
   width: 75%;
@@ -196,8 +190,8 @@ div.message-form button {
 }
 .ph-btn-blue {
 
-    border-color: #326E99;
-    background-color: #3F8ABF;
+    border-color: #03234A;
+    background-color: #245590;
 }
 
 .ph-btn-blue:hover, .ph-btn-blue:focus, .ph-btn-blue:active {
@@ -206,7 +200,7 @@ div.message-form button {
 }
 
 .ph-btn-gray {
-
+     margin-height: 10px;
      background-color: #C6CCD2;
      border-color: #AAB3BB;
 }
