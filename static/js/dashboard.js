@@ -7,10 +7,14 @@ var SearchForm = React.createClass({displayName: "SearchForm",
     // replace YourlocationsIndexName & YourindustrysIndexName by the name of the indexes you want to query.
     var locations = algolia.initIndex('LOCATIONS');
     var industries = algolia.initIndex('INDUSTRIES');
+    var companies = algolia.initIndex('COMPANIES');
 
     // Mustache templating by Hogan.js (http://mustache.github.io/)
     var templateIndustry = Hogan.compile('<div class="industry">' +
       '<div class="industry">{{{ _highlightResult.name.value }}}</div>' +
+    '</div>');
+    var templateCompany = Hogan.compile('<div class="company">' +
+      '<div class="company">{{{ _highlightResult.name.value }}}</div>' +
     '</div>');
     var templateLocation = Hogan.compile('<div class="location">' +
       '<div class="city">{{{ _highlightResult.city.value }}}</div>' +
@@ -33,6 +37,14 @@ var SearchForm = React.createClass({displayName: "SearchForm",
         templates: {
           header: '<div class="category">Locations</div>',
           suggestion: function(hit) { return templateLocation.render(hit); }
+        }
+      },
+      {
+        source: companies.ttAdapter({ hitsPerPage: 3 }),
+        displayKey: 'name',
+        templates: {
+          header: '<div class="category">Company</div>',
+          suggestion: function(hit) { return templateCompany.render(hit); }
         }
       }
     ]);
