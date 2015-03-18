@@ -56,7 +56,6 @@ var SearchForm = React.createClass({displayName: "SearchForm",
   clearAndFocusInput: function() {
       // Clear the input
     this.refs.query.getDOMNode().value = '';
-    React.findDOMNode(this.refs.query).focus();   // Boom! Focused!
   },
   componentDidUpdate: function(){
     this.clearAndFocusInput();
@@ -98,10 +97,9 @@ var SearchForm = React.createClass({displayName: "SearchForm",
             ),
           React.createElement("div", {className: "form-group", id:"submit"},
             React.createElement("button", {className: "ph-button ph-btn-gray", type: "submit"}, "Submit")
-          ),
-          React.createElement("div", {className: "form-group", id:"tags"}
-            )
-      )
+          )
+      ),
+         React.createElement("div", {className: "form-group", id:"tags"})
     )
     );
   }
