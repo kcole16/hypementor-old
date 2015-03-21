@@ -52,6 +52,7 @@ var SearchForm = React.createClass({displayName: "SearchForm",
   componentDidMount: function(){
     $('#tags').tagsInput();
     this.autoComplete();
+    this.props.handleQuery("");
   },
   clearAndFocusInput: function() {
       // Clear the input
@@ -61,12 +62,28 @@ var SearchForm = React.createClass({displayName: "SearchForm",
     this.clearAndFocusInput();
     this.autoComplete();
   },
+  handleRemove: function() {
+    newInput = [];
+    try {
+      query = this.state.currentSearch.split(" ");
+      query.map(function(x) {
+        if ($('#tags').tagExist(x)) {
+          newInput.push(x);
+        }
+      });
+    } catch(err) {
+      console.log(err);
+    }
+    this.props.handleQuery(newInput);
+    this.setState({currentSearch: newInput});
+    $('input.form-control').focus();
+  },
   handleSubmit: function(e) {
-    $('div.form-group.search-icon').css("height", "10px");
-    $('div.form-group#submit').css("height", "20px");
-    $('.search-form').css("min-height", "100px");
-    $('div.form-group#query').css("height", "60px");
-    $('input#mentors').css("height", "60px");
+    // $('div.form-group.search-icon').css("height", "10px");
+    // $('div.form-group#submit').css("height", "20px");
+    // $('.search-form').css("min-height", "100px");
+    // $('div.form-group#query').css("height", "60px");
+    // $('input#mentors').css("height", "60px");
     e.preventDefault();
     var query = this.refs.query.getDOMNode().value.trim();
     if (!query) {
@@ -99,7 +116,7 @@ var SearchForm = React.createClass({displayName: "SearchForm",
             React.createElement("button", {className: "ph-button ph-btn-gray", type: "submit"}, "Submit")
           )
       ),
-         React.createElement("div", {className: "form-group", id:"tags"})
+         React.createElement("div", {id:"tags", onClick: this.handleRemove})
     )
     );
   }
@@ -124,7 +141,7 @@ var MentorList = React.createClass({displayName: "MentorList",
                   ),
                   React.createElement("div", {className: "col-md-4", id: "message"}, 
                     React.createElement("a", {href: "/mentor_profile/"+mentor.linkedin_id+"/"},
-                      React.createElement("button", {className: "ph-button ph-btn-white"}, " View Profile")
+                      React.createElement("button", {className: "ph-button ph-btn-orange"}, " View Profile")
                     ),
                     React.createElement("a", {href: "/message/?mi="+mentor.linkedin_id, target: "_blank"},
                       React.createElement("button", {className: "ph-button ph-btn-blue"}, "Message")
@@ -154,7 +171,7 @@ var SearchBox = React.createClass({displayName: "SearchBox",
           this.setState({mentors: content['hits']});
         }
       }
-      index.search(query, searchCallback.bind(this));
+      index.search(query, searchCallback.bind(this), { "hitsPerPage": 10 });
   },
   handleQuery: function(value) {
     this.queryDB(value);

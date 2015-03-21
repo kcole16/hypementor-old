@@ -6,7 +6,7 @@
 <br> <br>
 {% if submitted == False %}
 
-<h4>Send Message to {{ mentor.first_name }} {{ mentor.last_name }}</h4><br>
+<h4>Send a message to {{ mentor.first_name }} {{ mentor.last_name }}</h4><br>
 <div class="message-form">
   <form class="form-horizontal message-form" method="post" action="{% url 'message'%}" role="form" >
   {% csrf_token %}

@@ -1,4 +1,5 @@
 div.tagsinput {
+    padding-top: 5px;
     width:70%;
     height:70px;
     display: table-cell;

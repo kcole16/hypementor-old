@@ -10,6 +10,7 @@ body {
   background: #e9eaec;
 }
 .container-fluid#navbar {
+  margin-left: 15px;
   background:url("http://www.virginia.edu/virginia/images/uva-logo-white.png") 0 0 no-repeat;
 
 }
@@ -63,7 +64,7 @@ ul.navbar-right {
 }
 input#mentors {
   font-size: 16px;
-  min-height: 70px;
+  height: 70px;
   float: left;
   min-width: 350px;
   text-transform: none;
@@ -74,17 +75,29 @@ input#mentors {
   box-shadow: none;
 }
 
+div.form-group.search-icon {
+  height: 10px;
+}
+
 div.form-group#query {
-  height: 70px;
+  height: 60px;
   margin-right: 30%;
 }
 input:focus{
     outline:none;
     background:none;
-
 }
+
+div.form-group#submit {
+  height: 20px;
+}
+
+form.form-inline {
+  border-bottom: solid 1px #EEE;
+}
+
 .search-form {
-  min-height: 70px;
+  min-height: 105px;
   width: 75%;
   background-color: #f9fafb;
   box-shadow:  0 1px 2px 0 rgba(0,0,0,.2);
@@ -93,7 +106,6 @@ input:focus{
 }
 
 .search-form form {
-  margin-left: 10px;
   float: left;
   width: 100%;
   min-width: 500px;
@@ -117,8 +129,7 @@ i.fa-search {
 }
 .results img {
   padding-top: 10px;
-/*  padding-left: 20px;
-*/  border-color: transparent;
+  border-color: transparent;
   border-width: 5px;
 }
 .details {
@@ -179,12 +190,12 @@ div.message-form button {
   font-weight: 500;
   font-size: 16px;
 }
-.ph-btn-white {
+.ph-btn-orange {
     background-color: #FF7400;
     border-color: #A74C00;
 
 }
-.ph-btn-white:hover, .ph-btn-white:focus, .ph-btn-white:active {
+.ph-btn-orange:hover, .ph-btn-orange:focus, .ph-btn-orange:active {
     background-color: #E57111;
     border-color: #A74C00;
 }
@@ -208,6 +219,9 @@ div.message-form button {
     background-color: #B8BFC7;
     border-color: #AAB3BB;
 }
+
+/* Autocomplete */
+
 .twitter-typeahead { width: 100%; }
 .twitter-typeahead .tt-input, .twitter-typeahead .tt-hint { width: 100%; margin: 0px; padding: 8px 12px; border: 2px solid #ccc; outline: none; }
 .twitter-typeahead .tt-input:focus { border: 2px solid #0097cf; }
@@ -218,7 +232,6 @@ div.message-form button {
 .twitter-typeahead .tt-dropdown-menu .tt-suggestion p { margin: 0; }
 .twitter-typeahead .tt-dropdown-menu .tt-suggestion a { color: #000; text-decoration: none; }
 .twitter-typeahead .tt-dropdown-menu .tt-suggestion em { font-weight: bold; font-style: normal; }
-
 
 .industry {
   font-size: 16px;
@@ -235,9 +248,28 @@ div.message-form button {
 
 .category {
   text-align: left;
+  padding-left: 3px;
   border: 4px solid white;
-  background-color: #F5F5F5;
+  background-color: #f36f21;
+  color: white;
   font-weight: bold;
+}
+
+/* Mentor profile */
+
+.mentor_profile {
+  margin-top: 20px;
+  width: 75%;
+  box-shadow:  0 1px 2px 0 rgba(0,0,0,.2);
+  margin-right: auto;
+  margin-left: auto;
+  min-height: 100px;
+  text-transform: none;
+  background-color: #f9fafb;
+}
+
+.info {
+  width: 90%;
 }
 
 

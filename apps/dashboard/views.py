@@ -23,10 +23,8 @@ def dashboard(request):
             user = User.objects.get(id=request.user.id)
             linkedin_id = Profile.objects.get(user_id=user.id).linkedin_id
             db = connect_mongodb()
-            client_code = db.authorized.find_one({'linkedin_id': linkedin_id})[
-                'client_code']
-            client_short_name = \
-                db.clients.find_one({'client_code': client_code})['short_name']
+            client_code = db.authorized.find_one({'linkedin_id': linkedin_id})['client_code']
+            client_short_name = db.clients.find_one({'client_code': client_code})['short_name']
             query = form.cleaned_data['industry']
             mentors = search_es(query, client_short_name)
         else:
@@ -36,7 +34,6 @@ def dashboard(request):
     return render_to_response('dashboard/dashboard.html',
                               {'form': form, 'mentors': mentors},
                               context_instance=RequestContext(request))
-
 
 @login_required
 def message(request):
@@ -79,7 +76,6 @@ def message(request):
                                'mentor_id': mentor_id, 'submitted': submitted},
                               context_instance=RequestContext(request))
 
-
 def searchdb(request):
     linkedin_id = Profile.objects.get(user_id=request.user.id).linkedin_id
     db = connect_mongodb()
@@ -90,7 +86,6 @@ def searchdb(request):
     query = request.GET['industry']
     mentors = json.dumps(search_es(query, client_short_name))
     return HttpResponse(json.dumps(mentors))
-
 
 @login_required
 def mentor_profile(request, linkedin_id):

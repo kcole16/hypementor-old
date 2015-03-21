@@ -157,7 +157,7 @@
 					f.call(this, value);
 				}
 			});
-
+			this.trigger('click');
 			return false;
 		};
 
