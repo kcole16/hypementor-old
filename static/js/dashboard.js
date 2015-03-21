@@ -124,10 +124,13 @@ var SearchForm = React.createClass({displayName: "SearchForm",
 var MentorList = React.createClass({displayName: "MentorList",
   render: function() {
       var mentors = this.props.mentors;
+      if (mentors.length === 0) {
+        mentors = false;
+      }
       return (
           React.createElement("br"), 
           React.createElement("div", {className: "results"}, 
-            mentors.map(function(mentor) {
+            mentors ? mentors.map(function(mentor) {
               return [
               React.createElement("div", {className: "person"}, 
                 React.createElement("div", {className: "row"}, 
@@ -152,7 +155,7 @@ var MentorList = React.createClass({displayName: "MentorList",
               )
               ];
 
-            })
+            }) : React.createElement("h4", null, "Sorry, no results. Try another search, or check back in a day or so, as alumni are signing up every minute.")
             )
   
         );
