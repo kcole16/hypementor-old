@@ -79,21 +79,27 @@ var SearchForm = React.createClass({displayName: "SearchForm",
     $('input.form-control').focus();
   },
   handleSubmit: function(e) {
-    // $('div.form-group.search-icon').css("height", "10px");
-    // $('div.form-group#submit').css("height", "20px");
-    // $('.search-form').css("min-height", "100px");
-    // $('div.form-group#query').css("height", "60px");
-    // $('input#mentors').css("height", "60px");
     e.preventDefault();
     var query = this.refs.query.getDOMNode().value.trim();
     if (!query) {
       return;
     }
-    $('#tags').addTag(query);
-    if (this.state.currentSearch !== null){
-      newInput = this.state.currentSearch+" "+query;
+    var currentSearch = this.state.currentSearch;
+    if (currentSearch !== "" && currentSearch !== []) {
+      try {
+        var currentList = currentSearch.split(" ");
+      } catch(err) {
+        var currentList = null;
+      }
     } else {
+      var currentList = null;
+    }
+    if (currentList === null) {
+      $('#tags').addTag(query);
       newInput = query;
+    } else if (currentList.indexOf(query) === -1)  {
+      $('#tags').addTag(query);
+      newInput = currentSearch+" "+query;
     }
     this.refs.query.getDOMNode().value = '';
     this.props.handleQuery(newInput);
