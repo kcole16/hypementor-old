@@ -28,7 +28,10 @@ def parse_profile(profile):
     first_name = xml.find('first-name').string
     last_name = xml.find('last-name').string
     email = xml.find('email-address').string
-    education = xml.find_all('school-name')[0].string
+    try:
+        education = xml.find_all('school-name')[0].string
+    except IndexError:
+        education = None
     username = email.split('@')[0]
     user_details = {'username':username, 'linkedin_id':linkedin_id, 
         'first_name':first_name, 'education':education,
