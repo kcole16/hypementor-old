@@ -180,7 +180,8 @@ var SearchBox = React.createClass({displayName: "SearchBox",
           this.setState({mentors: content['hits']});
         }
       }
-      index.search(query, searchCallback.bind(this), { "hitsPerPage": 10 });
+      // index.search(query, searchCallback.bind(this), { "hitsPerPage": 10 });
+      index.search(query, searchCallback.bind(this));
   },
   handleQuery: function(value) {
     this.queryDB(value);

@@ -3,6 +3,7 @@
  */
 
 /* Move down content because we have a fixed navbar that is 50px tall */
+
 body {
   padding-top: 50px;
   margin-right: auto;
@@ -11,8 +12,8 @@ body {
 }
 .container-fluid#navbar {
   margin-left: 15px;
-  background:url("http://www.virginia.edu/virginia/images/uva-logo-white.png") 0 0 no-repeat;
-
+/*  background:url("http://www.virginia.edu/virginia/images/uva-logo-white.png") 0 0 no-repeat;
+*/
 }
 
 
@@ -271,6 +272,48 @@ div.message-form button {
 .info {
   width: 90%;
 }
+
+
+@media only screen and (max-width: 1000px) {
+  .search-form {
+    width: 100%;
+  }
+  i.fa-search {
+    margin-left: 0px;
+    text-align: left;
+    padding-right: 2px;
+  }
+  .results {
+    width: 100%;
+    box-shadow:  0 1px 2px 0 rgba(0,0,0,.2);
+    margin-right: auto;
+    margin-left: auto;
+  }
+  div#message {
+    margin-bottom: 4%;
+  }
+  div.details {
+    margin-top: 2%;
+    text-align: center;
+  }
+  div.search-form form {
+    min-width: 0px;
+    float: none;
+  }
+  input#mentors {
+    text-align: center;
+  }
+  div.search-icon {
+    display: none;
+  }
+  div.form-group#submit {
+    margin-bottom: 30px;
+  }
+  div.mentor_profile {
+    width: 100%;
+  }
+}
+
 
 
 
