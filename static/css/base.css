@@ -4,6 +4,10 @@
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 
+div.center-block {
+  margin-top: 25px;
+}
+
 body {
   padding-top: 50px;
   margin-right: auto;
@@ -234,6 +238,7 @@ div.message-form button {
 .twitter-typeahead .tt-dropdown-menu .tt-suggestion a { color: #000; text-decoration: none; }
 .twitter-typeahead .tt-dropdown-menu .tt-suggestion em { font-weight: bold; font-style: normal; }
 
+
 .industry {
   font-size: 16px;
 }
@@ -275,6 +280,9 @@ div.message-form button {
 
 
 @media only screen and (max-width: 1000px) {
+  .navbar {
+    height: 50px;
+  }
   .search-form {
     width: 100%;
   }
@@ -311,6 +319,9 @@ div.message-form button {
   }
   div.mentor_profile {
     width: 100%;
+  }
+  div.center-block {
+    margin-top: 5px;
   }
 }
 

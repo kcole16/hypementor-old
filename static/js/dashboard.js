@@ -115,7 +115,7 @@ var SearchForm = React.createClass({displayName: "SearchForm",
           ),
           React.createElement("div", {className: "form-group", id: "query", onClick: this.handleSubmit},
             React.createElement("input", {className: "form-control", id:"mentors", type: "text", ref:"query", 
-              placeholder:"Search by location, industry, or company", name:"industry", autocomplete:"off",
+              placeholder:"Location, industry, or company", name:"industry", autocomplete:"off",
               spellcheck:"off", autocorrect:"off"})
             ),
           React.createElement("div", {className: "form-group", id:"submit"},
