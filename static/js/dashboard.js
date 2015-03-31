@@ -134,7 +134,6 @@ var MentorList = React.createClass({displayName: "MentorList",
         mentors = false;
       }
       return (
-          React.createElement("br"), 
           React.createElement("div", {className: "results"}, 
             mentors ? mentors.map(function(mentor) {
               return [
@@ -170,14 +169,14 @@ var MentorList = React.createClass({displayName: "MentorList",
 
 var SearchBox = React.createClass({displayName: "SearchBox",
   getInitialState: function() {
-    return { search: null, mentors: null, formExists: true };
+    return { search: null, mentors: null, formExists: true, resultsCount: null };
   },
   queryDB: function(query) {
     var client = new AlgoliaSearch('J5OKZCKMBB', 'b3342978705ee0d7158eedb3acec199d'); // public credentials
     var index = client.initIndex('MENTORS');
     function searchCallback(success, content) {
         if (success) {
-          this.setState({mentors: content['hits']});
+          this.setState({mentors: content['hits'], resultsCount: content['nbHits']});
         }
       }
       // index.search(query, searchCallback.bind(this), { "hitsPerPage": 10 });
@@ -197,10 +196,11 @@ var SearchBox = React.createClass({displayName: "SearchBox",
     var formExists = this.state.formExists;
     var mentors = this.state.mentors;
     var queryValue = this.state.queryValue;
+    var resultsCount = this.state.resultsCount;
     return (
       React.createElement("div", {className: "searchBox"}, 
         React.createElement(SearchForm, {handleQuery: this.handleQuery}),
-        React.createElement("br"), 
+          React.createElement("label",{className: "count"}, resultsCount+" results"),
          search ? React.createElement(MentorList, {mentors: mentors}) : null
       )
     );

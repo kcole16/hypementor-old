@@ -180,7 +180,7 @@
       defaultText:'',
       minChars:0,
       width:'100%',
-      height:'70px',
+      height:'42px',
       autocomplete: {selectFirst: false },
       hide:true,
       delimiter:[',',';'],
