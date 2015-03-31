@@ -149,7 +149,7 @@ var MentorList = React.createClass({displayName: "MentorList",
                   ),
                   React.createElement("div", {className: "col-md-4", id: "message"}, 
                     React.createElement("a", {href: "/mentor_profile/"+mentor.linkedin_id+"/"},
-                      React.createElement("button", {className: "ph-button ph-btn-orange"}, "Profile")
+                      React.createElement("button", {className: "ph-button ph-btn-orange"}, "View Profile")
                     ),
                     React.createElement("a", {href: "/message/?mi="+mentor.linkedin_id, target: "_blank"},
                       React.createElement("button", {className: "ph-button ph-btn-blue"}, "Message")
