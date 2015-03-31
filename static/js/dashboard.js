@@ -115,7 +115,7 @@ var SearchForm = React.createClass({displayName: "SearchForm",
           ),
           React.createElement("div", {className: "form-group", id: "query", onClick: this.handleSubmit},
             React.createElement("input", {className: "form-control", id:"mentors", type: "text", ref:"query", 
-              placeholder:"Location, industry, or company", name:"industry", autocomplete:"off",
+              placeholder:"Search location, industry, or company", name:"industry", autocomplete:"off",
               spellcheck:"off", autocorrect:"off"})
             ),
           React.createElement("div", {className: "form-group", id:"submit"},
@@ -150,7 +150,7 @@ var MentorList = React.createClass({displayName: "MentorList",
                   ),
                   React.createElement("div", {className: "col-md-4", id: "message"}, 
                     React.createElement("a", {href: "/mentor_profile/"+mentor.linkedin_id+"/"},
-                      React.createElement("button", {className: "ph-button ph-btn-orange"}, " View Profile")
+                      React.createElement("button", {className: "ph-button ph-btn-orange"}, "Profile")
                     ),
                     React.createElement("a", {href: "/message/?mi="+mentor.linkedin_id, target: "_blank"},
                       React.createElement("button", {className: "ph-button ph-btn-blue"}, "Message")
