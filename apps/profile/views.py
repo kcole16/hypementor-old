@@ -79,7 +79,7 @@ def submit(request):
 
 def user_login(request):
     client_id = os.environ['LINKEDIN_CLIENT_ID']
-    scope = 'r_fullprofile r_emailaddress'
+    scope = 'r_basicprofile r_emailaddress'
     state = str(uuid4()).replace('-', '')
     redirect_uri = '%s/oauth/' % str(os.environ['PATH_URL'])
     url = 'https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=%s&scope=%s&state=%s&redirect_uri=%s' % (
