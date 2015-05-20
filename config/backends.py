@@ -31,6 +31,8 @@ class RestBackend(object):
             user = User(username=username, first_name=first_name, 
                     last_name=last_name, email=email, password='None')
             user.save()
+            if not education:
+                education = None
             profile = Profile(user=user, linkedin_id=linkedin_id, education=education,
                  access_token=access_token)
             profile.save()
