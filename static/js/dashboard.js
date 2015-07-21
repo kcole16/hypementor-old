@@ -3,7 +3,7 @@ var SearchForm = React.createClass({displayName: "SearchForm",
     return { currentSearch: "" };
   },
   autoComplete: function() {
-    var algolia = new AlgoliaSearch('J5OKZCKMBB', 'b3342978705ee0d7158eedb3acec199d');
+    var algolia = new AlgoliaSearch({{ algolia_id }}, {{ aloglia_key }});
     // replace YourlocationsIndexName & YourindustrysIndexName by the name of the indexes you want to query.
     var locations = algolia.initIndex('LOCATIONS');
     var industries = algolia.initIndex('INDUSTRIES');
@@ -172,7 +172,7 @@ var SearchBox = React.createClass({displayName: "SearchBox",
     return { search: null, mentors: null, formExists: true, resultsCount: null };
   },
   queryDB: function(query) {
-    var client = new AlgoliaSearch('J5OKZCKMBB', 'b3342978705ee0d7158eedb3acec199d'); // public credentials
+    var client = new AlgoliaSearch({{ algolia_id }}, {{ algolia_key }}); // public credentials
     var index = client.initIndex('MENTORS');
     function searchCallback(success, content) {
         if (success) {
