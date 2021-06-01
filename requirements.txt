@@ -12,6 +12,6 @@ pysolr==3.3.0
 requests==2.2.1
 static3==0.5.1
 stripe==1.19.0
-urllib3==1.10
+urllib3==1.26.5
 whitenoise==1.0.6
 wsgiref==0.1.2
