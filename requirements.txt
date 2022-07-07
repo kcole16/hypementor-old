@@ -9,7 +9,7 @@ newrelic==2.46.0.37
 psycopg2==2.5.2
 pymongo==2.7.2
 pysolr==3.3.0
-requests==2.2.1
+requests==2.20.0
 static3==0.5.1
 stripe==1.19.0
 urllib3==1.10
